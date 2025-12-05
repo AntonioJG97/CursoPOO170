@@ -6,6 +6,10 @@ public abstract class Empleado {
         System.out.println("El empleado esta trabajando");
     }
 
+    public void saludar(){
+        System.out.println("hola a todos!");
+    }
+
     public abstract double calcularSalario();
 
     public abstract String nombre();

@@ -12,4 +12,9 @@ public class Cocinero extends Empleado{
     public String nombre() {
         return "Cocinero";
     }
+
+    @Override
+    public void saludar() {
+        System.out.println("Hola yo soy el cocinero");
+    }
 }
