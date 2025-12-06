@@ -1,5 +1,5 @@
-package com.mx.curso.proyecto_final.sistema_de_inventario;
-
+package com.mx.curso.proyecto_final.sistema_inventario.servicio;
+import com.mx.curso.proyecto_final.sistema_inventario.modelo.Cliente;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -8,15 +8,15 @@ public class Venta {
     private final String idVenta;
     private LocalDateTime fechaHora;
     private Cliente cliente;
-    private ArrayList<LineaVenta> linea;
+    private ArrayList<LineaVenta> articulosVendidos;
     private double total;
     private double impuesto;
 
-    public Venta(String idVenta, LocalDateTime fechaHora, Cliente cliente, ArrayList<LineaVenta> linea, double total, double impuesto) {
+    public Venta(String idVenta, LocalDateTime fechaHora, Cliente cliente, ArrayList<LineaVenta> articulosVendidos, double total, double impuesto) {
         this.idVenta = idVenta;
         this.fechaHora = fechaHora;
         this.cliente = cliente;
-        this.linea = linea;
+        this.articulosVendidos = articulosVendidos;
         this.total = total;
         this.impuesto = impuesto;
     }
@@ -42,11 +42,11 @@ public class Venta {
     }
 
     public ArrayList<LineaVenta> getLinea() {
-        return linea;
+        return articulosVendidos;
     }
 
     public void setLinea(ArrayList<LineaVenta> linea) {
-        this.linea = linea;
+        this.articulosVendidos = linea;
     }
 
     public double getTotal() {
@@ -64,4 +64,16 @@ public class Venta {
     public void setImpuesto(double impuesto) {
         this.impuesto = impuesto;
     }
+
+    public double total(){
+
+
+    }
+
+    public void generarFactura(){
+
+
+
+    }
+
 }

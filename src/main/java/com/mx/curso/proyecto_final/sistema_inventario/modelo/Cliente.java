@@ -1,4 +1,4 @@
-package com.mx.curso.proyecto_final.sistema_de_inventario;
+package com.mx.curso.proyecto_final.sistema_inventario.modelo;
 
 public class Cliente extends EntidadComercial {
 
@@ -19,8 +19,4 @@ public class Cliente extends EntidadComercial {
         }
     }
 
-    @Override
-    public String toString() {
-        return "Cliente{id='" + getId() + "', nombre='" + getNombre() + "', telefono='" + telefono + "'}";
-    }
 }

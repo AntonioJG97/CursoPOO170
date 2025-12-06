@@ -1,4 +1,4 @@
-package com.mx.curso.proyecto_final.sistema_de_inventario;
+package com.mx.curso.proyecto_final.sistema_inventario.modelo;
 
 public abstract class EntidadComercial{
 

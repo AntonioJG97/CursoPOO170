@@ -1,6 +1,10 @@
-package com.mx.curso.proyecto_final.sistema_de_inventario;
+package com.mx.curso.proyecto_final.sistema_inventario.controlador;
+import com.mx.curso.proyecto_final.sistema_inventario.modelo.Cliente;
+import com.mx.curso.proyecto_final.sistema_inventario.modelo.Producto;
+import com.mx.curso.proyecto_final.sistema_inventario.modelo.Proveedor;
+import com.mx.curso.proyecto_final.sistema_inventario.servicio.Venta;
 
-import java.sql.SQLOutput;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -83,12 +87,119 @@ public class SistemaInventario {
                                 }else{
                                     System.out.println("Sin resultados");
                                 }
-
+                                break;
+                            default:
+                                System.out.println("Opcion invalida");
+                                break;
 
                         }
 
                     }while(opc!=0);
-                    System.out.println();
+
+                case 2:
+
+                    int opc1;
+                    do{
+                        System.out.println("CLIENTES");
+                        System.out.println("1.- Registrar");
+                        System.out.println("0.- regresar al menu principal");
+                        System.out.println("Elige una opcion");
+                        opc1 = Integer.parseInt(scanner.nextLine());
+
+                        switch(opc1){
+                            case 1:
+                                System.out.println("Ingresa el ID del cliente");
+                                String idcliente = scanner.nextLine();
+                                System.out.println("Ingresa el mombre");
+                                String nomCliente = scanner.nextLine();
+                                System.out.println("Ingrese el telefono");
+                                String telCliente = scanner.nextLine();
+                                Cliente cliente = new Cliente(idcliente,nomCliente,telCliente);
+                                inventario.registrarCliente(cliente);
+                                break;
+
+                            default:
+                                System.out.println("Opcion invalida");
+                                break;
+
+                        }
+
+                    }while(opc1!=0);
+
+                case 3:
+                    int opc2;
+                    do{
+                        System.out.println("PROVEEDORES");
+                        System.out.println("1.- Registrar");
+                        System.out.println("2.- Buscar productos asociados al proveedor");
+                        System.out.println("0.- regresar al menu principal");
+                        System.out.println("Elige una opcion");
+                        opc2 = Integer.parseInt(scanner.nextLine());
+
+                        switch(opc2){
+                            case 1:
+                                System.out.println("Ingresa el ID del proveedor");
+                                String idProveedor = scanner.nextLine();
+                                System.out.println("Ingresa el mombre");
+                                String nomProveedor = scanner.nextLine();
+                                System.out.println("Ingrese el contacto del proveedor");
+                                String contacto = scanner.nextLine();
+                                Proveedor proveedor = new Proveedor(idProveedor,nomProveedor,contacto);
+                                inventario.registrarProveedor(proveedor);
+                                break;
+
+                            case 2:
+                                System.out.println("Ingresa ID del proveedor");
+                                String idProve = scanner.nextLine();
+                                inventario.buscarProductosxProveedor(idProve);
+
+                            default:
+                                System.out.println("Opcion invalida");
+                                break;
+
+                        }
+
+                    }while(opc2!=0);
+
+                case 4:
+
+                    int opc3;
+                    do{
+                        System.out.println("VENTAS");
+                        System.out.println("1.- Registrar Venta");
+                        System.out.println("0.- regresar al menu principal");
+                        System.out.println("Elige una opcion");
+                        opc3 = Integer.parseInt(scanner.nextLine());
+
+                        switch(opc3){
+                            case 1:
+                                System.out.println("Ingresa el ID de la venta");
+                                String idVenta = scanner.nextLine();
+                                System.out.println("Ingresa el ID del cliente");
+                                String idCliente = scanner.nextLine();
+                                System.out.println("Ingrese el ID del producto vendido");
+                                String producto = scanner.nextLine();
+                                System.out.println("Ingresa la cantidad");
+                                int cantidadVen = scanner.nextInt();
+                                LocalDateTime now = LocalDateTime.now();
+                                System.out.println("Current date and time: " + now);
+                                Venta venta = new Venta(idVenta,now,idCliente)
+                                break;
+
+                            case 2:
+                                System.out.println("Ingresa ID del proveedor");
+                                String idProve = scanner.nextLine();
+                                inventario.buscarProductosxProveedor(idProve);
+
+                            default:
+                                System.out.println("Opcion invalida");
+                                break;
+
+                        }
+
+                    }while(opc3!=0);
+
+
             }
 
 
@@ -167,7 +278,7 @@ public class SistemaInventario {
     //CLIENTES
     public boolean registrarCliente(Cliente c){
         for(Cliente cliente: clientes){
-            if(cliente.getId().equals(c.id)){
+            if(cliente.getId().equals(c.getId())){
                 System.out.println("Este cliente ya existe");
                 return false;
             }

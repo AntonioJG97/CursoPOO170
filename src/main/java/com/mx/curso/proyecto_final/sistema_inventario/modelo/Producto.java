@@ -1,4 +1,4 @@
-package com.mx.curso.proyecto_final.sistema_de_inventario;
+package com.mx.curso.proyecto_final.sistema_inventario.modelo;
 
 public class Producto {
 
@@ -89,18 +89,16 @@ public class Producto {
         this.proveedor = proveedor;
     }
 
-    public void agregarStock(int cantidad){
-        if (cantidad > 0) {
-            this.cantidadStock = cantidadStock + cantidad;
-        }else{
-            System.out.println("cantidad debe ser mayor a cero");
-        }
+    public void actualizarStock(int nuevoStock, double nuevoPrecio){
+
+
+
     }
 
-    @Override
-    public String toString() {
-        return "Producto: id='" + id + "', nombre='" + nombre + "', precioVenta=" + precioVenta + ", stock=" + cantidadStock +
-                ", proveedor=" + (proveedor != null ? proveedor.getNombre() : "N/A");
+    public void emitirAlerta(){
+
     }
+
+
 
 }

@@ -1,4 +1,6 @@
-package com.mx.curso.proyecto_final.sistema_de_inventario;
+package com.mx.curso.proyecto_final.sistema_inventario.servicio;
+
+import com.mx.curso.proyecto_final.sistema_inventario.modelo.Producto;
 
 public class LineaVenta {
 

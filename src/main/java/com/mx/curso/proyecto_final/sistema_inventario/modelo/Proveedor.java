@@ -1,6 +1,6 @@
-package com.mx.curso.proyecto_final.sistema_de_inventario;
+package com.mx.curso.proyecto_final.sistema_inventario.modelo;
 
-public class Proveedor extends EntidadComercial{
+public class Proveedor extends EntidadComercial {
 
     private String contacto;
 
@@ -20,9 +20,5 @@ public class Proveedor extends EntidadComercial{
 
     }
 
-    @Override
-    public String toString() {
-        return "Proveedor{id='" + getId() + "', nombre='" + getNombre() + "', contacto='" + contacto + "'}";
-    }
 }
 
