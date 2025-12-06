@@ -19,4 +19,9 @@ public class Cliente extends EntidadComercial {
         }
     }
 
+    @Override
+    public String toString() {
+        return "Cliente{id='" + getId() + "', nombre='" + getNombre() + "', telefono='" + telefono + "'}";
+    }
+
 }

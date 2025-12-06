@@ -2,6 +2,7 @@ package com.mx.curso.proyecto_final.sistema_inventario.controlador;
 import com.mx.curso.proyecto_final.sistema_inventario.modelo.Cliente;
 import com.mx.curso.proyecto_final.sistema_inventario.modelo.Producto;
 import com.mx.curso.proyecto_final.sistema_inventario.modelo.Proveedor;
+import com.mx.curso.proyecto_final.sistema_inventario.servicio.InventarioService;
 import com.mx.curso.proyecto_final.sistema_inventario.servicio.Venta;
 
 import java.time.LocalDateTime;
@@ -11,7 +12,7 @@ import java.util.Scanner;
 public class SistemaInventario {
 
     static void main(String[] args) {
-        SistemaInventario inventario= new SistemaInventario();
+        InventarioService inventario= new InventarioService();
         Scanner scanner = new Scanner(System.in);
         int opcion;
         do{
@@ -173,23 +174,41 @@ public class SistemaInventario {
 
                         switch(opc3){
                             case 1:
-                                System.out.println("Ingresa el ID de la venta");
+                                System.out.println("Ingresa el ID de la venta:");
                                 String idVenta = scanner.nextLine();
-                                System.out.println("Ingresa el ID del cliente");
-                                String idCliente = scanner.nextLine();
-                                System.out.println("Ingrese el ID del producto vendido");
-                                String producto = scanner.nextLine();
-                                System.out.println("Ingresa la cantidad");
-                                int cantidadVen = scanner.nextInt();
-                                LocalDateTime now = LocalDateTime.now();
-                                System.out.println("Current date and time: " + now);
-                                Venta venta = new Venta(idVenta,now,idCliente)
-                                break;
 
-                            case 2:
-                                System.out.println("Ingresa ID del proveedor");
-                                String idProve = scanner.nextLine();
-                                inventario.buscarProductosxProveedor(idProve);
+                                System.out.println("Ingresa el ID del cliente:");
+                                String idCliente = scanner.nextLine();
+                                Cliente cliente = null;
+                                if (!idCliente.isBlank()) {
+                                    cliente = inventario.buscarCliente(idCliente);
+                                    if (cliente == null) {
+                                        System.out.println("Cliente no encontrado. La venta será a CONTADO.");
+                                    }
+                                }
+
+                                System.out.println("Ingrese el ID del producto vendido:");
+                                String idProducto = scanner.nextLine();
+                                Producto productoEncontrado = inventario.buscarProducto(idProducto);
+                                if (productoEncontrado == null) {
+                                    System.out.println("ERROR: Producto no encontrado.");
+                                    break;
+                                }
+
+                                System.out.println("Ingresa la cantidad:");
+                                int cantidadVen = Integer.parseInt(scanner.nextLine());
+                                if (cantidadVen > productoEncontrado.getCantidadStock()) {
+                                    System.out.println("ERROR: Stock insuficiente. Stock actual: " + productoEncontrado.getCantidadStock());
+                                    break;
+                                }
+                                // Crear la venta y registrar
+                                Venta venta = new Venta(idVenta, cliente);
+                                venta.agregarLinea(productoEncontrado, cantidadVen);
+                                productoEncontrado.disminuirStock(cantidadVen);
+                                inventario.registrarVenta(venta);
+                                venta.generarFactura();
+                                System.out.println("Venta registrada correctamente.");
+
 
                             default:
                                 System.out.println("Opcion invalida");
@@ -206,85 +225,6 @@ public class SistemaInventario {
         }while(opcion!=0);
     }
 
-    private ArrayList<Producto> productos = new ArrayList<>();
-    private ArrayList<Cliente> clientes = new ArrayList<>();
-    private ArrayList<Proveedor> proveedores = new ArrayList<>();
-    private ArrayList<Venta> Ventas = new ArrayList<>();
 
-
-    //PRODUCTOS
-    public boolean registrarProducto(Producto p) {
-        if(buscarProducto(p.getId()) != null){
-            System.out.println("Este producto ya existe");
-            return false;
-        }
-        productos.add(p);
-        return true;
-    }
-
-    public Producto buscarProducto(String id){
-        for(Producto p: productos){
-            if(p.getId().equals(id)){
-                return p;
-            }
-        }return null;
-    }
-
-    public void actualizarProducto(String id, double nuevoPrecio, int nuevoStock){
-        Producto p = buscarProducto(id);
-        if(p == null){
-            System.out.println("Este producto no existe");
-            return;
-        }else{
-            p.setPrecioVenta(nuevoPrecio);
-            p.setCantidadStock(nuevoStock);
-            System.out.println("Producto: "+id+ " Actualizado");
-        }
-    }
-
-    public void alertaStockBajo(){
-        for(Producto p: productos){
-            if(p.getCantidadStock()< p.getUmbralMinimo()){
-                System.out.println("Alerta! Stock del producto: "+p.getNombre()+" BAJO");
-                System.out.println("Realizar pedido con proveedor"); //que el sistema me diga el proveedor
-            }
-        }
-    }
-    //PROVEEDORES
-    public boolean registrarProveedor(Proveedor p) {
-        if(buscarProveedor(p.getId()) != null){
-            System.out.println("Este producto ya existe");
-            return false;
-        }
-        proveedores.add(p);
-        return true;
-    }
-     public Proveedor buscarProveedor(String id) {
-     for (Proveedor p : proveedores) {
-     if (p.getId().equals(id)) return p;
-     }
-     return null;
-     }
-
-     public ArrayList<Producto> buscarProductosxProveedor(String idproveedor){
-        ArrayList<Producto> lista = new ArrayList<>();
-        for(Producto pro: productos){
-           if(pro.getProveedor().getId().equals(idproveedor)){
-                lista.add(pro);
-            }
-        }
-        return lista;
-     }
-    //CLIENTES
-    public boolean registrarCliente(Cliente c){
-        for(Cliente cliente: clientes){
-            if(cliente.getId().equals(c.getId())){
-                System.out.println("Este cliente ya existe");
-                return false;
-            }
-        }
-        clientes.add(c);
-        return true;
-    }
 
 }

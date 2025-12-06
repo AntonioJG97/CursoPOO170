@@ -20,5 +20,10 @@ public class Proveedor extends EntidadComercial {
 
     }
 
+    @Override
+    public String toString() {
+        return "Proveedor{id='" + getId() + "', nombre='" + getNombre() + "', contacto='" + contacto + "'}";
+    }
+
 }
 

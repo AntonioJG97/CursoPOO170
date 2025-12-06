@@ -89,16 +89,34 @@ public class Producto {
         this.proveedor = proveedor;
     }
 
-    public void actualizarStock(int nuevoStock, double nuevoPrecio){
-
-
-
+    public void agregarStock(int cantidad){
+        if (cantidad > 0) {
+            this.cantidadStock = cantidadStock + cantidad;
+        }else{
+            System.out.println("cantidad debe ser mayor a cero");
+        }
     }
 
-    public void emitirAlerta(){
-
+    public boolean disminuirStock(int cantidad) {
+        if (cantidad <= 0) return false;
+        if (cantidad > this.cantidadStock) {
+            System.out.println("No hay stock suficiente del producto: " + nombre);
+            return false;
+        }
+        this.cantidadStock -= cantidad;
+        return true;
     }
 
+    public boolean estaBajoStock() {
+        return cantidadStock < umbralMinimo;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Producto: id='" + id + "', nombre='" + nombre + "', precioVenta=" + precioVenta + ", stock=" + cantidadStock +
+                ", proveedor=" + (proveedor != null ? proveedor.getNombre() : "N/A");
+    }
 
 
 }
