@@ -1,4 +1,4 @@
-package com.mx.curso.unidad3.paradigma_oo;
+package com.mx.curso.unidad3.paradigma_oo.practica1y2;
 
 public class Principal {
 
@@ -10,9 +10,9 @@ public class Principal {
         restaurante1.calificacion = 9;
 
         Restaurante restaurante2 = new Restaurante();
-        restaurante1.nombre = "Golden Dragon";
-        restaurante1.tipoDeComida = "Comida China";
-        restaurante1.calificacion = 8;
+        restaurante2.nombre = "Golden Dragon";
+        restaurante2.tipoDeComida = "Comida China";
+        restaurante2.calificacion = 8;
 
         restaurante1.abrir();
         restaurante2.abrir();

@@ -1,4 +1,4 @@
-package com.mx.curso.unidad3.paradigma_oo;
+package com.mx.curso.unidad3.paradigma_oo.practica1y2;
 
 public class Empleado {
 
